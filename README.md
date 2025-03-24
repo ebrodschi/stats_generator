@@ -1,8 +1,9 @@
-# 💬 Chatbot template
+# 💬 Stats Generator
 
-A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
+A stats generator based on a LLM output to which you can input a text and extract all statistic data from it in a structure format.
+You can thus generate stats database of all your text sources.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
+[![Open in Streamlit]https://stats-generator.streamlit.app/)
 
 ### How to run it on your own machine
 
