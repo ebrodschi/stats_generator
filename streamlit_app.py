@@ -1,5 +1,7 @@
 import streamlit as st
 from openai import OpenAI
+import pandas as pd
+import json
 
 # Show title and description.
 st.title("💬 Chat Generator")
@@ -64,18 +66,50 @@ else:
             st.session_state.messages.insert(0, {"role": "system", "content": system_prompt})
 
         # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
-            stream=True,
+            stream=False,
         )
+        # Get the full response text
+        full_response = response.choices[0].message.content
 
         # Stream the response to the chat using `st.write_stream`, then store it in 
         # session state.
+        """
         with st.chat_message("assistant"):
             response = st.write_stream(stream)
         st.session_state.messages.append({"role": "assistant", "content": response})
+        """
+
+        with st.chat_message("assistant"):
+            # Get the response as a string
+            #raw_response = st.write_stream(stream)
+
+            try:
+                # Parse the string into a Python list of dicts
+                data = json.loads(full_response)
+
+                # Ensure it's a list (in case the model returned a single dict)
+                if isinstance(data, list):
+                    df = pd.DataFrame(data)
+                    # change order of column
+                    col_to_front = 'descripcion_en_lenguaje_natural'
+                    df = df[[col_to_front] + [col for col in df.columns if col != col_to_front]]    
+                    st.dataframe(df, use_container_width=True)
+                elif isinstance(data, dict):
+                    df = pd.DataFrame([data])  # wrap in a list to make a single-row table
+                    st.dataframe(df, use_container_width=True)
+                else:
+                    st.warning("Unexpected data format. Here's the raw output:")
+                    st.write(full_response)
+
+            except json.JSONDecodeError:
+                st.error("The assistant's response is not valid JSON. Here's what it returned:")
+                st.write(full_response)
+
+
 
