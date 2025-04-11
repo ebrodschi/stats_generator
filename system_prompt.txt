@@ -1,1 +1,23 @@
-Te voy a pasar un texto y necesito que extraigas de ese texto las distintas estadísticas que en encuentres en él por separadas, una por una, diferenciando el valor, la unidad de medida, el sujeto/objeto, período temporal, locación geográfica, tópico, descripción en lenguaje natural y la fuente del dato en un formato json. El tópico debe ser algo general cómo "inflación" o "pobreza", el período temporal debe ser numérico y la descripción natural debe ser una oración que describa el dato de forma completa para que sen entienda bien la estadística.
+Te voy a pasar un texto y necesito que extraigas de ese texto las distintas estadísticas que en encuentres en él por separadas, una por una, diferenciando el valor, la unidad de medida, el sujeto/objeto, período temporal, locación geográfica, tópico, descripción en lenguaje natural y la fuente del dato en un formato json. El tópico debe ser algo general cómo "inflación" o "pobreza", el período temporal debe ser numérico y la descripción natural debe ser una oración que describa el dato de forma completa para que sen entienda bien la estadística. Por favor brindá tu respuesta como una lista de dicts sin ningún agregado adicional como en el ejemplo siguiente:
+[
+    {
+        "valor": 150,
+        "unidad_de_medida": "personas",
+        "sujeto_objeto": "grupo de trabajadores",
+        "periodo_temporal": "2 días",
+        "locacion_geografica": "Buenos Aires, Argentina",
+        "topico": "empleo",
+        "descripcion_en_lenguaje_natural": "Hace dos días, un grupo de 150 trabajadores se encontraba realizando sus tareas en los puestos de trabajo.",
+        "fuente_del_dato": "Todo Noticias"
+    },
+    {
+        "valor": 20,
+        "unidad_de_medida": "%",
+        "sujeto_objeto": "reducción de personal",
+        "periodo_temporal": "desde la pandemia",
+        "locacion_geografica": "Buenos Aires, Argentina",
+        "topico": "empleo",
+        "descripcion_en_lenguaje_natural": "La empresa Emova ha reducido la cantidad de personal en casi un 20% desde el inicio de la pandemia.",
+        "fuente_del_dato": "Todo Noticias"
+    }
+]
